@@ -1,3 +1,7 @@
-body{
-    background:white !important;
+body {
+    background: white !important;
+}
+
+svg {
+    cursor: pointer;
 }
