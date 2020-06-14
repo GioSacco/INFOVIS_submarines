@@ -133,13 +133,36 @@ function updateSubmarines(submarine){
 
         var randomSubmarine;
 
+        var randomIndex;
+        var submarineIndex = submarineList.findIndex(item => submarine.submarineID === item.submarineID);
+
         do{
-          randomSubmarine = submarineList[Math.floor(Math.random() * submarineList.length)];
+          randomIndex = Math.floor(Math.random() * submarineList.length);
+          randomSubmarine = submarineList[randomIndex];
           
         }while(randomSubmarine.submarineID === submarine.submarineID);
 
         randomResize(randomSubmarine, submarine);
         randomResize(submarine, randomSubmarine);
+
+        submarineList.splice(randomIndex, 1);
+        submarineList.splice(submarineIndex, 1);
+
+        var oldSubmarine = JSON.parse(JSON.stringify(submarine));
+        console.log(submarine.primaryColor);
+
+        submarine.submarineWidht = randomSubmarine.submarineWidht;
+        submarine.turretHeight = randomSubmarine.turretHeight;
+        submarine.primaryColor = randomSubmarine.primaryColor;
+
+        randomSubmarine.submarineWidht = oldSubmarine.submarineWidht;
+        randomSubmarine.turretHeight = oldSubmarine.turretHeight;
+        randomSubmarine.primaryColor = oldSubmarine.primaryColor;
+
+        console.log(oldSubmarine.primaryColor);
+
+        submarineList.push(submarine);
+        submarineList.push(randomSubmarine);
 
 }
 
