@@ -2,8 +2,8 @@ let submarinesJson = [
     {
         "submarineWidht": 110,
         "turretHeight": 10,
-        "submarineX": 10,
-        "submarineY": 200,
+        "submarineX": 40,
+        "submarineY": 100,
         "primaryColor": "#8c0000"
     },
     {
@@ -11,42 +11,42 @@ let submarinesJson = [
         "turretHeight": 15,
         "submarineX": 300,
         "submarineY": 220,
-        "primaryColor": "#007239"
+        "primaryColor": "#40ce49"
     },
     {
         "submarineWidht": 130,
         "turretHeight": 5,
         "submarineX": 600,
-        "submarineY": 230,
-        "primaryColor": "#003e6f"
+        "submarineY": 130,
+        "primaryColor": "#47aa9d"
     },
     {
         "submarineWidht": 150,
         "turretHeight": 0,
         "submarineX": 900,
         "submarineY": 200,
-        "primaryColor": "#1c213e"
+        "primaryColor": "#ff0f64"
     },
     {
         "submarineWidht": 170,
         "turretHeight": 20,
         "submarineX": 1200,
-        "submarineY": 210,
+        "submarineY": 110,
         "primaryColor": "#7f7f7f"
     },
     {
         "submarineWidht": 120,
         "turretHeight": 17,
-        "submarineX": 10,
+        "submarineX": 30,
         "submarineY": 400,
-        "primaryColor": "#897200"
+        "primaryColor": "#eacf54"
     },
     {
         "submarineWidht": 145,
         "turretHeight": 17,
         "submarineX": 310,
         "submarineY": 440,
-        "primaryColor": "#0064d0"
+        "primaryColor": "#ff5151"
     },
     {
         "submarineWidht": 180,
@@ -60,7 +60,7 @@ let submarinesJson = [
         "turretHeight": 3,
         "submarineX": 930,
         "submarineY": 370,
-        "primaryColor": "#338f83"
+        "primaryColor": "#f187ff"
     },
     {
         "submarineWidht": 125,
