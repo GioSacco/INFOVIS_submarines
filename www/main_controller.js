@@ -9,14 +9,25 @@ function drawSubmarines(submarine){
          *  INIZIALIZZA L'SVG DEL SINGOLO SOTTOMARINO 
          * */
 
+        d3.select("html")
+          .style("height", "100%")
+          .style("width", "100%")
+
+        d3.select("body")
+            .style("height", "100%")
+            .style("width", "100%")
+
+
         var svg = d3.select("body")
             .append("svg")
             .attr("id", submarine.submarineID+"_svg")
             .attr("width", submarine.submarineWidht)
             .attr("height", submarine.submarineWidht)
-            .attr("transform", function() {
-                    return "translate("+submarine.submarineX+","+submarine.submarineY+")";
-        });
+            .style("position", "absolute")
+            .style("margin", "auto")
+            .style("left", submarine.submarineX+"px")
+            .style("top", submarine.submarineY+"px");
+
 
         // CHIAMA LA FUNZIONE randomResize AL CLICK
         svg.on("click", function() {
@@ -40,7 +51,6 @@ function drawSubmarines(submarine){
             .attr("rx", submarine.submarineWidht / 2)
             .attr("ry", submarine.submarineWidht / 5.5)
             .attr("fill", submarine.primaryColor);
-
 
 
         /**
@@ -128,7 +138,9 @@ function drawSubmarines(submarine){
 
 };
 
-
+// PRENDE RANDOM UN SOTTOMARINO DAI 9 RIMANENTI E SOSTITUISCE LE SUE
+// SPECIFICHE (COLORE, DIMENSIONE, ALTEZZA DELLA TORRETTE) CON QUELLE 
+// DEL SOTTOMARINO SELEZIONATO
 function updateSubmarines(submarine){
 
         var randomSubmarine;
@@ -145,11 +157,16 @@ function updateSubmarines(submarine){
         randomResize(randomSubmarine, submarine);
         randomResize(submarine, randomSubmarine);
 
+
+        // Aggiorna i due sottomarini nella lista con le caratteristiche appena aggiornate.
+        // Se non facessi questo avrei un disallineamento tra ciò che vedo sulla grafica
+        // (sottomarini con le caratteristiche aggiornate dopo lo scambio con quelle di un altro)
+        // e ciò che invece è salvato sulla lista (sottomarini con le caratteristiche originali). 
+
         submarineList.splice(randomIndex, 1);
         submarineList.splice(submarineIndex, 1);
 
         var oldSubmarine = JSON.parse(JSON.stringify(submarine));
-        console.log(submarine.primaryColor);
 
         submarine.submarineWidht = randomSubmarine.submarineWidht;
         submarine.turretHeight = randomSubmarine.turretHeight;
@@ -159,22 +176,20 @@ function updateSubmarines(submarine){
         randomSubmarine.turretHeight = oldSubmarine.turretHeight;
         randomSubmarine.primaryColor = oldSubmarine.primaryColor;
 
-        console.log(oldSubmarine.primaryColor);
-
         submarineList.push(submarine);
         submarineList.push(randomSubmarine);
 
 }
 
-// MODIFICA LA DIMENSIONE DEL SOTTOMARINO SELEZIONATO CON QUELLA DI UN ALTRO
-// PRESO RANDOM DALLA LISTA
+// MODIFICA LA CARATTERISTICHE DEI DUE SOTTOMARINI
+// RICEVUTI COME PARAMETRI
 function randomResize(submarine, submarineToCopy){
 
         // MODIFICA WIDTH ED HEIGHT DELL' SVG
-        d3.select("#"+submarine.submarineID+"_svg")
+        svg = d3.select("#"+submarine.submarineID+"_svg")
           .transition()
-          .delay(0)
-          .duration(1000)
+          .delay(100)
+          .duration(500)
           .attr("width", submarineToCopy.submarineWidht)
           .attr("height", submarineToCopy.submarineWidht);
 
@@ -182,7 +197,7 @@ function randomResize(submarine, submarineToCopy){
         d3.select("#"+submarine.submarineID+"_ellipse_area")
           .transition()
           .delay(100)
-          .duration(1000)
+          .duration(500)
           .attr("cx", submarineToCopy.submarineWidht / 2)
           .attr("cy", submarineToCopy.submarineWidht / 2)
           .attr("rx", submarineToCopy.submarineWidht / 2)
@@ -193,7 +208,7 @@ function randomResize(submarine, submarineToCopy){
         d3.select("#"+submarine.submarineID+"_rect_area")
           .transition()
           .delay(100)
-          .duration(1000)
+          .duration(500)
           .attr("x", submarineToCopy.submarineWidht / 2.6)
           .attr("y", submarineToCopy.submarineWidht / 3.6)
           .attr("width", submarineToCopy.submarineWidht / 4)
@@ -210,7 +225,7 @@ function randomResize(submarine, submarineToCopy){
         d3.select("#"+submarine.submarineID+"_turret_area")
           .transition()
           .delay(100)
-          .duration(1000)
+          .duration(500)
           .attr("width", submarineToCopy.submarineWidht/50)
           .attr("height", turretHeightNormalize)
           .attr("fill", submarineToCopy.primaryColor)
@@ -222,7 +237,7 @@ function randomResize(submarine, submarineToCopy){
         d3.select("#"+submarine.submarineID+"_name")
           .transition()
           .delay(100)
-          .duration(1000)
+          .duration(500)
           .attr("x", submarineToCopy.submarineWidht/1.6)
           .attr("y", submarineToCopy.submarineWidht/2.5)
           .attr("stroke", "white")
@@ -236,7 +251,7 @@ function randomResize(submarine, submarineToCopy){
         d3.select("#"+submarine.submarineID+"_elica_top")
           .transition()
           .delay(100)
-          .duration(1000)
+          .duration(500)
           .attr("points", (submarineToCopy.submarineWidht-10)+","+submarineToCopy.submarineWidht/2.76+","+(submarineToCopy.submarineWidht-10)+","+submarineToCopy.submarineWidht/2+","+submarineToCopy.submarineWidht/2.5+","+submarineToCopy.submarineWidht/2)
           .style("fill", submarineToCopy.primaryColor)
           .attr("opacity", 0.7);
@@ -244,18 +259,18 @@ function randomResize(submarine, submarineToCopy){
         d3.select("#"+submarine.submarineID+"_elica_bottom")
           .transition()
           .delay(100)
-          .duration(1000)
+          .duration(500)
           .attr("points", (submarineToCopy.submarineWidht-10)+","+submarineToCopy.submarineWidht/1.55+","+(submarineToCopy.submarineWidht-10)+","+submarineToCopy.submarineWidht/2+","+submarineToCopy.submarineWidht/2.5+","+submarineToCopy.submarineWidht/2)
           .style("fill", submarineToCopy.primaryColor)
           .attr("opacity", 0.7);
 
 
-        // MODIFICA OBLO
+        // MODIFICA I DUE OBLO
 
         d3.select("#"+submarine.submarineID+"_oblo_dx")
           .transition()
           .delay(100)
-          .duration(1000)
+          .duration(500)
           .attr("cx", submarineToCopy.submarineWidht/2)
           .attr("cy", submarineToCopy.submarineWidht/2)
           .attr("r", submarineToCopy.submarineWidht/25)
@@ -265,7 +280,7 @@ function randomResize(submarine, submarineToCopy){
         d3.select("#"+submarine.submarineID+"_oblo_sx")
           .transition()
           .delay(100)
-          .duration(1000)
+          .duration(500)
           .attr("cx", submarineToCopy.submarineWidht/3.6)
           .attr("cy", submarineToCopy.submarineWidht/2)
           .attr("r", submarineToCopy.submarineWidht/15)
