@@ -4,6 +4,9 @@ body {
 }
 
 svg {
-    cursor: pointer;
     position: absolute;
+}
+
+svg g {
+    cursor: pointer;
 }

@@ -29,16 +29,16 @@ function drawSubmarines(submarine){
             .style("top", submarine.submarineY+"px");
 
 
-        // CHIAMA LA FUNZIONE randomResize AL CLICK
-        svg.on("click", function() {
-            updateSubmarines(submarine);
-        })
-
         var g = svg.append("g")
             .attr("transform", function(d, i) {
                     return "translate(0,0)";
             });
 
+
+        // CHIAMA LA FUNZIONE randomResize AL CLICK
+        g.on("click", function() {
+            updateSubmarines(submarine);
+        })
 
         /**
          * DISEGNA L'ELLISSE DEL SOTTOMARINO
